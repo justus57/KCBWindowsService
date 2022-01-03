@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KCBWindowsService", "KCBWindowsService.csproj", "{42026CD3-5168-4C4D-B35A-C0C46DC90E19}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "KCBWindowsInstaller", "..\KCBWindowsInstaller\KCBWindowsInstaller.vdproj", "{21FB57B5-A967-4A23-8190-866C31C786E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42026CD3-5168-4C4D-B35A-C0C46DC90E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42026CD3-5168-4C4D-B35A-C0C46DC90E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42026CD3-5168-4C4D-B35A-C0C46DC90E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42026CD3-5168-4C4D-B35A-C0C46DC90E19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21FB57B5-A967-4A23-8190-866C31C786E7}.Debug|Any CPU.ActiveCfg = Debug
+		{21FB57B5-A967-4A23-8190-866C31C786E7}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B4E7CE97-4648-41A2-AD54-9751D22802AB}
+	EndGlobalSection
+EndGlobal

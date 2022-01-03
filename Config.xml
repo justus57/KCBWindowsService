@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>	
+	<!--<IsEncrypted>N</IsEncrypted>-->
+	<Password>1520Suspect6?</Password>
+	<Username>REDCROSS101</Username>	
+	<auth>https://196.216.223.2:4450/kcb/payments/auth/v1</auth>
+	<Apiurl></Apiurl>
+	<systemCode></systemCode>
+	<serviceId></serviceId>
+	<ServiceTimerInterval>40000</ServiceTimerInterval>
+</Settings>
