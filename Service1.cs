@@ -48,43 +48,63 @@ namespace KCBWindowsService
             WebService.WriteLog("Running..");
             try
             {
-               
-                // encrypt the data using gpg
-                PGPEncryptDecrypt pgp = new PGPEncryptDecrypt();
-                string passPhrase = "KCB!";
-                string origFilePath = @"C:\Users\Admin2\Downloads\New folder\newbie.txt";
-                string encryptedFilePath = @"C:\Users\Admin2\Downloads\New folder\";                
-                string unencryptedFilePath = @"C:\Users\Admin2\Downloads\New folder\";               
-                string publicKeyFile = @"C:\Users\Admin2\Downloads\New folder\dummy.pkr";
-                string privateKeyFile = @"C:\Users\Admin2\Downloads\New folder\dummy.skr";
-                pgp.Encrypt(origFilePath, publicKeyFile, encryptedFilePath);
 
-                DirectoryInfo DirInfo = new DirectoryInfo(@"c:\test\");
-
-                var filesInOrder = from f in DirInfo.EnumerateFiles()
-                                   orderby f.CreationTime
-                                   select f;
-
-                foreach (var item in filesInOrder)
+                string[] filePaths = Directory.GetFiles(@"C:\BTL", "*.txt");
+                List<string> lst = filePaths.ToList();
+                foreach (var element in lst)
                 {
-                    
+                    //Console.WriteLine(element);
+
+                    string fileName1 = element;
+                    string fileName = Path.GetFileName(fileName1);
+                    var fileStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Read);
+
+                    WebService.WriteLog("Encrypting file..");
+                    // encrypt the data using gpg
+
+                    PGPEncryptDecrypt pgp = new PGPEncryptDecrypt();
+                    //full path to file to encrypt
+                    string origfilePath = fileName;
+                    string origFilePath = Path.GetFileName(origfilePath);
+                    //folder to store encrypted file
+                    string encryptedFilePath = GetConfigData("encryptedFilePath");
+                    //folder to store unencrypted file
+                    string unencryptedFilePath = GetConfigData("unencryptedFilePath");
+                    //path to public key file 
+                    string publicKeyFile = GetConfigData("publicKeyFile");
+                    //string publicKeyFile = Path.GetFileName(publicKeyFilepath);
+                    //path to private key file (this file should be kept at client, AND in a secure place, far from prying eyes and tinkering hands)
+                    string privateKeyFile = GetConfigData("privateKeyFile");
+                    //string privateKeyFile = Path.GetFileName(privateKeyFilepath);
+                    pgp.Encrypt(origFilePath, publicKeyFile, encryptedFilePath);
+                    // pgp.Decrypt(encryptedFilePath + "credentials.txt.asc", privateKeyFile, passPhrase, unencryptedFilePath);
+                    var directory = GetConfigData("filenamelocation");
+                    var dir = new DirectoryInfo(directory);
+                    var lastModified = dir.GetFiles().OrderByDescending(fi => fi.LastWriteTime).First();
+                    var fullfilename = lastModified.FullName;
+
+                    //var encryptedFile = @"C:\Users\Admin2\Downloads\New folder\94424.txt.asc";
+                    var encryptedFile = Convert.ToString(fullfilename);
+
+
                     string ConversationID = string.Format("{0:yyyy-MM-ddTHH:mm:ss.FFFZ}", DateTime.UtcNow);
 
                     string token = Gettoken();
                     token = "Bearer " + token;
+
                     //SENDING INFORMATION TO API
                     var PrintCommand = new checksumBody
                     {
                         conversationId = ConversationID,
                         encryptedFile = encryptedFilePath,
-                        fileName = item.FullName,
+                        fileName =fileName,
                         systemCode = GetConfigData("systemCode"),
                         serviceId = GetConfigData("serviceId")
 
                     };
                     JavaScriptSerializer js = new JavaScriptSerializer();
                     string body = js.Serialize(PrintCommand);
-
+                    WebService.WriteLog("sending file to api..");
                     //Sending using restsharp
                     var client = new RestClient(GetConfigData("Apiurl"));
                     client.Timeout = -1;
@@ -94,9 +114,8 @@ namespace KCBWindowsService
                     request.AddHeader("Authorization", token);
                     request.AddParameter("application/json", body, ParameterType.RequestBody);
                     IRestResponse response = client.Execute(request);
-
-
                 }
+
             }
             catch (Exception es)
             {

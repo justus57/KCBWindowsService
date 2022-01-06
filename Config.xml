@@ -1,11 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>	
-	<!--<IsEncrypted>N</IsEncrypted>-->
 	<Password>1520Suspect6?</Password>
+	
 	<Username>REDCROSS101</Username>	
+	
 	<auth>https://196.216.223.2:4450/kcb/payments/auth/v1</auth>
-	<Apiurl></Apiurl>
-	<systemCode></systemCode>
-	<serviceId></serviceId>
+	
+	<Validate>https://196.216.223.2:4450/kcb/payments/validation/v1</Validate>
+	
+	<fileupload>https://196.216.223.2:4450/kcb/fileUpload/v1</fileupload>
+	
+	<query>https://196.216.223.2:4450/kcb/payments/query/v1</query>
+	
+	<Apiurl>https://localhost:44369/Checksum/V1</Apiurl>
+	
+	<encryptedFilePath>C:\Users\Admin2\Downloads\New folder\</encryptedFilePath>
+	
+	<unencryptedFilePath>C:\Users\Admin2\Downloads\New folder\</unencryptedFilePath>
+	
+	<publicKeyFile>C:\Users\Admin2\Downloads\New folder\REDCROSS.ASC</publicKeyFile>
+	
+	<privateKeyFile>C:\Users\Admin2\Downloads\New folder\REDCROSS.ASC</privateKeyFile>
+	
+	<filenamelocation>C:\Users\Admin2\Downloads\New folder\</filenamelocation>
+	
+	<systemCode>REDCROSS</systemCode>
+	
+	<serviceId>REDCROSS</serviceId>
+	
 	<ServiceTimerInterval>40000</ServiceTimerInterval>
 </Settings>
